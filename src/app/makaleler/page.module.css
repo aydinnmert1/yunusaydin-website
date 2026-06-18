@@ -1,0 +1,141 @@
+.pageWrapper {
+  padding-top: var(--header-height);
+  min-height: 100vh;
+}
+
+.pageHeader {
+  background-color: var(--color-primary);
+  color: #fff;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.pageTitle {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.pageSubtitle {
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.articlesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .articlesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .articlesGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.articleCard {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.articleCard:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-secondary);
+}
+
+.articleMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+}
+
+.category {
+  background-color: rgba(212, 175, 55, 0.1);
+  color: var(--color-secondary);
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-weight: 600;
+}
+
+.date {
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.articleTitle {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.articleTitle a {
+  color: var(--color-primary);
+}
+
+.articleTitle a:hover {
+  color: var(--color-secondary);
+}
+
+@media (prefers-color-scheme: dark) {
+  .articleTitle a {
+    color: var(--color-secondary);
+  }
+  .articleTitle a:hover {
+    color: var(--color-secondary-hover);
+  }
+}
+
+.excerpt {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.excerpt p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+}
+
+.readMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--color-secondary);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.readMore:hover {
+  gap: 0.5rem;
+}
+
+.noArticles {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  grid-column: 1 / -1;
+  padding: 4rem 0;
+}

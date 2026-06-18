@@ -1,0 +1,124 @@
+.footer {
+  background-color: var(--color-primary);
+  color: #fff;
+  padding-top: 5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .footer {
+    background-color: #0a0a0a;
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+  .footerGrid {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+}
+
+.brandSection {
+  max-width: 400px;
+}
+
+.logo {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.description {
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.footerHeading {
+  font-family: var(--font-serif);
+  color: var(--color-secondary);
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.linkList a {
+  color: #cbd5e1;
+  transition: var(--transition);
+}
+
+.linkList a:hover {
+  color: var(--color-secondary);
+  padding-left: 0.25rem;
+}
+
+.contactList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contactList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+}
+
+.contactList a {
+  color: #cbd5e1;
+}
+
+.contactList a:hover {
+  color: var(--color-secondary);
+}
+
+.icon {
+  color: var(--color-secondary);
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.bottomBar {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bottomBarContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+@media (min-width: 768px) {
+  .bottomBarContent {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.disclaimer {
+  font-size: 0.75rem;
+  max-width: 500px;
+}

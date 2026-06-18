@@ -1,0 +1,150 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background-color: transparent;
+  transition: all 0.4s ease;
+  z-index: 1000;
+  border-bottom: 1px solid transparent;
+}
+
+.scrolled {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (prefers-color-scheme: dark) {
+  .scrolled {
+    background-color: rgba(18, 18, 18, 0.95);
+  }
+}
+
+.navContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+@media (prefers-color-scheme: dark) {
+  .logo {
+    color: var(--color-secondary);
+  }
+}
+
+.logoSub {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.desktopNav {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .desktopNav {
+    display: block;
+  }
+}
+
+.navList {
+  display: flex;
+  gap: 2rem;
+}
+
+.navLink {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text);
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.navLink::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-secondary);
+  transition: width 0.3s ease;
+}
+
+.navLink:hover::after,
+.navLink.active::after {
+  width: 100%;
+}
+
+.mobileMenuBtn {
+  display: block;
+  color: var(--color-text);
+}
+
+@media (min-width: 768px) {
+  .mobileMenuBtn {
+    display: none;
+  }
+}
+
+.mobileNav {
+  position: absolute;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: 1rem 0;
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-md);
+}
+
+.mobileNavOpen {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mobileNavList {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileNavLink {
+  display: block;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.mobileNavLink:last-child {
+  border-bottom: none;
+}
+
+.mobileNavLink:hover,
+.mobileNavLink.active {
+  color: var(--color-secondary);
+  background-color: rgba(212, 175, 55, 0.05);
+}
