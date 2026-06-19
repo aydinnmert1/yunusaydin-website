@@ -36,8 +36,10 @@ const WP_API_URL = process.env.NEXT_PUBLIC_WP_API_URL || 'https://yunusaydin.av.
  */
 export async function getSortedArticlesData(): Promise<ArticleMetadata[]> {
   try {
-    // Sadece gerekli alanları çekmek için performansı artırıyoruz
-    const res = await fetch(`${WP_API_URL}?_fields=id,date,slug,title,excerpt&per_page=12`);
+    // Her sayfayı yenilediğinizde WordPress'ten güncel veriyi çekmesi için cache'i kapatıyoruz
+    const res = await fetch(`${WP_API_URL}?_fields=id,date,slug,title,excerpt&per_page=12`, {
+      cache: 'no-store'
+    });
     
     if (!res.ok) {
       throw new Error('Failed to fetch articles from WordPress API');
@@ -66,8 +68,10 @@ export async function getSortedArticlesData(): Promise<ArticleMetadata[]> {
  */
 export async function getArticleData(slug: string): Promise<Article | null> {
   try {
-    // Slug üzerinden sorgu atıyoruz
-    const res = await fetch(`${WP_API_URL}?slug=${slug}&_fields=id,date,slug,title,excerpt,content`);
+    // Slug üzerinden anlık güncel veriyi çekiyoruz
+    const res = await fetch(`${WP_API_URL}?slug=${slug}&_fields=id,date,slug,title,excerpt,content`, {
+      cache: 'no-store'
+    });
     
     if (!res.ok) {
       throw new Error(`Failed to fetch article with slug: ${slug}`);
