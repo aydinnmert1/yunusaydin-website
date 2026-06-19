@@ -40,10 +40,10 @@ export default async function Home() {
   // WordPress'ten dinamik verileri çekiyoruz
   const acfData = await getHomePageData();
   
-  // Eğer WordPress'ten veri gelmezse varsayılan yazılar gösterilecek
-  const heroSlogan = acfData?.hero_slogan || "Güvenilir Hukuki Çözümler";
-  const heroTitle = acfData?.hero_title || "Haklarınızın Güçlü Savunucusu";
-  const aboutSummary = acfData?.about_summary || "Avukat Yunus Aydın, hukuki uyuşmazlıklarda profesyonel, şeffaf ve sonuç odaklı danışmanlık ve avukatlık hizmetleri sunmaktadır.";
+  // Eğer WordPress'ten veri gelmezse  // API yanıtından ACF alanlarını alıyoruz (Kullanıcı Türkçe isimlerle oluşturmuş olabilir)
+  const heroSlogan = acfData?.hero_slogan || acfData?.ana_slogan || "Güvenilir Hukuki Çözümler";
+  const heroTitle = acfData?.hero_title || acfData?.ana_baslik || "Haklarınızın Güçlü Savunucusu";
+  const aboutSummary = acfData?.about_summary || acfData?.hakkimda_ozeti || "Avukat Yunus Aydın, hukuki uyuşmazlıklarda profesyonel, şeffaf ve sonuç odaklı danışmanlık ve avukatlık hizmetleri sunmaktadır.";
 
   // Başlığı ikiye bölüp son 2 kelimesini renkli (highlight) yapmak için yardımcı bir mantık
   const titleWords = heroTitle.split(' ');
