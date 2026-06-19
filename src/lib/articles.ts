@@ -29,7 +29,7 @@ export type Article = ArticleMetadata & {
 };
 
 // API URL'sini çevresel değişkenlerden alıyoruz
-const WP_API_URL = process.env.NEXT_PUBLIC_WP_API_URL || 'https://yunusaydin.av.tr/wp-json/wp/v2/posts';
+const WP_API_URL = process.env.NEXT_PUBLIC_WP_API_URL || 'https://panel.yunusaydin.av.tr/wp-json/wp/v2/posts';
 
 /**
  * Tüm makaleleri WP REST API'den çeker ve kendi veri formatımıza çevirir.
