@@ -2,7 +2,20 @@ import Link from "next/link";
 import { ArrowRight, Scale, BookOpen, ShieldCheck } from "lucide-react";
 import styles from "./page.module.css";
 
-export default function Home() {
+async function getHomePageData() {
+  try {
+    const res = await fetch(`https://panel.yunusaydin.av.tr/wp-json/wp/v2/pages?slug=ana-sayfa&_fields=acf`, { cache: 'no-store' });
+    const pages = await res.json();
+    if (pages && pages.length > 0 && pages[0].acf) {
+      return pages[0].acf;
+    }
+  } catch (error) {
+    console.error("Error fetching homepage data:", error);
+  }
+  return null;
+}
+
+export default async function Home() {
   const practiceAreas = [
     {
       id: 1,
@@ -24,16 +37,31 @@ export default function Home() {
     }
   ];
 
+  // WordPress'ten dinamik verileri çekiyoruz
+  const acfData = await getHomePageData();
+  
+  // Eğer WordPress'ten veri gelmezse varsayılan yazılar gösterilecek
+  const heroSlogan = acfData?.hero_slogan || "Güvenilir Hukuki Çözümler";
+  const heroTitle = acfData?.hero_title || "Haklarınızın Güçlü Savunucusu";
+  const aboutSummary = acfData?.about_summary || "Avukat Yunus Aydın, hukuki uyuşmazlıklarda profesyonel, şeffaf ve sonuç odaklı danışmanlık ve avukatlık hizmetleri sunmaktadır.";
+
+  // Başlığı ikiye bölüp son 2 kelimesini renkli (highlight) yapmak için yardımcı bir mantık
+  const titleWords = heroTitle.split(' ');
+  const highlightedPart = titleWords.length > 2 ? titleWords.slice(-2).join(' ') : "";
+  const restOfTitle = titleWords.length > 2 ? titleWords.slice(0, -2).join(' ') : heroTitle;
+
   return (
     <>
       {/* Hero Section */}
       <section className={styles.hero}>
         <div className={`container ${styles.heroContainer}`}>
           <div className={styles.heroContent}>
-            <span className={styles.heroBadge}>Güvenilir Hukuki Çözümler</span>
-            <h1 className={styles.heroTitle}>Haklarınızın <br/><span className={styles.heroHighlight}>Güçlü Savunucusu</span></h1>
+            <span className={styles.heroBadge}>{heroSlogan}</span>
+            <h1 className={styles.heroTitle}>
+              {restOfTitle} {highlightedPart && <><br/><span className={styles.heroHighlight}>{highlightedPart}</span></>}
+            </h1>
             <p className={styles.heroDescription}>
-              Avukat Yunus Aydın, hukuki uyuşmazlıklarda profesyonel, şeffaf ve sonuç odaklı danışmanlık ve avukatlık hizmetleri sunmaktadır.
+              {aboutSummary}
             </p>
             <div className={styles.heroActions}>
               <Link href="/iletisim" className="btn-primary">
