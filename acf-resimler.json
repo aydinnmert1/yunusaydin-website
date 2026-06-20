@@ -1,0 +1,87 @@
+[
+    {
+        "key": "group_ana_sayfa_resimleri",
+        "title": "Ana Sayfa Resimleri",
+        "fields": [
+            {
+                "key": "field_hero_bg_image",
+                "label": "Ana Sayfa Arka Plan Resmi (En üstteki fotoğraf)",
+                "name": "hero_bg_image",
+                "type": "image",
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            },
+            {
+                "key": "field_home_about_image",
+                "label": "Ana Sayfa 'Hakkımda' Bölümü Resmi",
+                "name": "home_about_image",
+                "type": "image",
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "page"
+                },
+                {
+                    "param": "post",
+                    "operator": "==",
+                    "value": "10"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": true
+    },
+    {
+        "key": "group_hakkimda_resimleri",
+        "title": "Hakkımda Sayfası Resimleri",
+        "fields": [
+            {
+                "key": "field_about_page_image",
+                "label": "Hakkımda Sayfası Profil Resmi",
+                "name": "about_page_image",
+                "type": "image",
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "page"
+                },
+                {
+                    "param": "post",
+                    "operator": "==",
+                    "value": "47"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": true
+    }
+]

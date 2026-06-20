@@ -42,10 +42,14 @@ export default async function Home() {
   // WordPress'ten dinamik verileri çekiyoruz
   const acfData = await getHomePageData();
   
-  // Eğer WordPress'ten veri gelmezse  // API yanıtından ACF alanlarını alıyoruz (Kullanıcı Türkçe isimlerle oluşturmuş olabilir)
+  // API yanıtından ACF alanlarını alıyoruz (Kullanıcı Türkçe isimlerle oluşturmuş olabilir)
   const heroSlogan = acfData?.hero_slogan || acfData?.ana_slogan || "Güvenilir Hukuki Çözümler";
   const heroTitle = acfData?.hero_title || acfData?.ana_baslik || "Haklarınızın Güçlü Savunucusu";
   const aboutSummary = acfData?.about_summary || acfData?.hakkimda_ozeti || "Avukat Yunus Aydın, hukuki uyuşmazlıklarda profesyonel, şeffaf ve sonuç odaklı danışmanlık ve avukatlık hizmetleri sunmaktadır.";
+  
+  // Resimleri de WP'den alıyoruz (yoksa varsayılan)
+  const heroBgImage = acfData?.hero_bg_image || "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=2000&auto=format&fit=crop";
+  const homeAboutImage = acfData?.home_about_image; // optional
 
   // Başlığı ikiye bölüp son 2 kelimesini renkli (highlight) yapmak için yardımcı bir mantık
   const titleWords = heroTitle.split(' ');
@@ -55,7 +59,12 @@ export default async function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className={styles.hero}>
+      <section className={styles.hero} style={{
+        backgroundImage: `linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.8)), url('${heroBgImage}')`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat'
+      }}>
         <div className={`container ${styles.heroContainer}`}>
           <div className={styles.heroContent}>
             <span className={styles.heroBadge}>{heroSlogan}</span>
@@ -81,9 +90,11 @@ export default async function Home() {
       <section className={`section ${styles.aboutPreview}`}>
         <div className={`container ${styles.aboutGrid}`}>
           <div className={styles.aboutImageWrapper}>
-            <div className={styles.aboutImagePlaceholder}>
-              {/* Replace with actual image later */}
-              <span>Av. Yunus Aydın</span>
+            <div 
+              className={styles.aboutImagePlaceholder} 
+              style={homeAboutImage ? { backgroundImage: `url('${homeAboutImage}')`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}}
+            >
+              {!homeAboutImage && <span>Av. Yunus Aydın</span>}
             </div>
             <div className={styles.experienceBadge}>
               <span className={styles.expNumber}>10+</span>

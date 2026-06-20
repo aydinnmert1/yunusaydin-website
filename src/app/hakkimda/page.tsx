@@ -28,6 +28,7 @@ export default async function AboutPage() {
   const deneyim = acfData?.deneyim_yili || "10+";
   const dava = acfData?.basarili_dava_sayisi || "500+";
   const makale = acfData?.makale_sayisi || "50+";
+  const aboutImage = acfData?.about_page_image; // optional
 
   return (
     <div className={styles.pageWrapper}>
@@ -42,8 +43,11 @@ export default async function AboutPage() {
         <div className={`container ${styles.aboutGrid}`}>
           {/* Image Side */}
           <div className={styles.imageSide}>
-            <div className={styles.imagePlaceholder}>
-              Av. Yunus Aydın
+            <div 
+              className={styles.imagePlaceholder}
+              style={aboutImage ? { backgroundImage: `url('${aboutImage}')`, backgroundSize: 'cover', backgroundPosition: 'center' } : {}}
+            >
+              {!aboutImage && "Av. Yunus Aydın"}
             </div>
           </div>
 
