@@ -6,7 +6,29 @@ export const metadata = {
   description: "Avukat Yunus Aydın'ın özgeçmişi, eğitimi ve hukuki vizyonu.",
 };
 
-export default function AboutPage() {
+async function getHakkimdaData() {
+  try {
+    const res = await fetch(`http://panel.yunusaydin.av.tr/wp-json/wp/v2/pages?slug=hakkimda&_fields=acf`, { cache: 'no-store' });
+    const pages = await res.json();
+    if (pages && pages.length > 0 && pages[0].acf) {
+      return pages[0].acf;
+    }
+  } catch (error) {
+    console.error("Error fetching hakkimda data:", error);
+  }
+  return null;
+}
+
+export default async function AboutPage() {
+  const acfData = await getHakkimdaData();
+
+  const altBaslik = acfData?.hakkimda_alt_baslik || "Hukukun üstünlüğüne inanan, müvekkil odaklı ve çözüm üreten bir hukuk bürosu.";
+  const p1 = acfData?.birinci_paragraf || "Avukat Yunus Aydın, kariyeri boyunca sayısız hukuki uyuşmazlığın çözümünde rol almış, şeffaflık ve güven ilkelerinden ödün vermeden mesleğini icra etmektedir. Ceza Hukuku, Aile Hukuku ve Ticaret Hukuku başta olmak üzere geniş bir yelpazede danışmanlık hizmeti sunmaktadır.";
+  const p2 = acfData?.ikinci_paragraf || "Amacımız; müvekkillerimizin hukuki sorunlarını en kısa sürede, en az maliyetle ve en etkili şekilde çözüme kavuşturmaktır. Her dosya için özel bir strateji belirleyerek, sürecin her aşamasında müvekkillerimizi bilgilendirmeyi ilke ediniyoruz.";
+  const deneyim = acfData?.deneyim_yili || "10+";
+  const dava = acfData?.basarili_dava_sayisi || "500+";
+  const makale = acfData?.makale_sayisi || "50+";
+
   return (
     <div className={styles.pageWrapper}>
       {/* Header */}
@@ -29,36 +51,28 @@ export default function AboutPage() {
           <div className={styles.textSide}>
             <h2 className={styles.heading}>Avukat Yunus Aydın</h2>
             <p className={styles.lead}>
-              Hukukun üstünlüğüne inanan, müvekkil odaklı ve çözüm üreten bir hukuk bürosu.
+              {altBaslik}
             </p>
             
             <div className={styles.bio}>
-              <p>
-                Avukat Yunus Aydın, kariyeri boyunca sayısız hukuki uyuşmazlığın çözümünde rol almış, 
-                şeffaflık ve güven ilkelerinden ödün vermeden mesleğini icra etmektedir. 
-                Ceza Hukuku, Aile Hukuku ve Ticaret Hukuku başta olmak üzere geniş bir yelpazede danışmanlık hizmeti sunmaktadır.
-              </p>
-              <p>
-                Amacımız; müvekkillerimizin hukuki sorunlarını en kısa sürede, en az maliyetle ve 
-                en etkili şekilde çözüme kavuşturmaktır. Her dosya için özel bir strateji belirleyerek, 
-                sürecin her aşamasında müvekkillerimizi bilgilendirmeyi ilke ediniyoruz.
-              </p>
+              <p>{p1}</p>
+              <p>{p2}</p>
             </div>
 
             <div className={styles.stats}>
               <div className={styles.statItem}>
                 <div className={styles.statIcon}><Scale size={24} /></div>
-                <div className={styles.statValue}>10+</div>
+                <div className={styles.statValue}>{deneyim}</div>
                 <div className={styles.statLabel}>Yıllık Tecrübe</div>
               </div>
               <div className={styles.statItem}>
                 <div className={styles.statIcon}><Award size={24} /></div>
-                <div className={styles.statValue}>500+</div>
+                <div className={styles.statValue}>{dava}</div>
                 <div className={styles.statLabel}>Başarılı Dava</div>
               </div>
               <div className={styles.statItem}>
                 <div className={styles.statIcon}><BookOpen size={24} /></div>
-                <div className={styles.statValue}>50+</div>
+                <div className={styles.statValue}>{makale}</div>
                 <div className={styles.statLabel}>Yayımlanmış Makale</div>
               </div>
             </div>

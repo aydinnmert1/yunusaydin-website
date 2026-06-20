@@ -1,0 +1,86 @@
+[
+    {
+        "key": "group_genel_iletisim",
+        "title": "Genel Sitenin İletişim Bilgileri",
+        "fields": [
+            { "key": "field_telefon", "label": "Telefon Numarası", "name": "telefon_numarasi", "type": "text" },
+            { "key": "field_eposta", "label": "E-posta Adresi", "name": "eposta_adresi", "type": "email" },
+            { "key": "field_adres", "label": "Açık Adres", "name": "acik_adres", "type": "textarea" },
+            { "key": "field_saatler", "label": "Çalışma Saatleri", "name": "calisma_saatleri", "type": "text" },
+            { "key": "field_footer_hakkinda", "label": "Footer Hakkında Yazısı", "name": "footer_hakkinda_yazisi", "type": "textarea" }
+        ],
+        "location": [ [ { "param": "post_type", "operator": "==", "value": "page" } ] ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": true
+    },
+    {
+        "key": "group_hakkimda",
+        "title": "Hakkımda Sayfası Ayarları",
+        "fields": [
+            { "key": "field_hakkimda_alt_baslik", "label": "Hakkımda Alt Başlık", "name": "hakkimda_alt_baslik", "type": "text" },
+            { "key": "field_hakkimda_p1", "label": "Birinci Paragraf", "name": "birinci_paragraf", "type": "textarea" },
+            { "key": "field_hakkimda_p2", "label": "İkinci Paragraf", "name": "ikinci_paragraf", "type": "textarea" },
+            { "key": "field_deneyim", "label": "Deneyim Yılı", "name": "deneyim_yili", "type": "text" },
+            { "key": "field_dava", "label": "Başarılı Dava Sayısı", "name": "basarili_dava_sayisi", "type": "text" },
+            { "key": "field_makale", "label": "Makale Sayısı", "name": "makale_sayisi", "type": "text" }
+        ],
+        "location": [ [ { "param": "post_type", "operator": "==", "value": "page" } ] ],
+        "menu_order": 1,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": true
+    },
+    {
+        "key": "group_iletisim",
+        "title": "İletişim Sayfası Ayarları",
+        "fields": [
+            { "key": "field_iletisim_ust", "label": "Sayfa Alt Yazısı", "name": "iletisim_alt_yazisi", "type": "textarea" },
+            { "key": "field_iletisim_form", "label": "Form Üstü Yazısı", "name": "iletisim_form_ustu", "type": "textarea" }
+        ],
+        "location": [ [ { "param": "post_type", "operator": "==", "value": "page" } ] ],
+        "menu_order": 2,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": true
+    },
+    {
+        "key": "group_uzmanlik",
+        "title": "Uzmanlık Alanları Ayarları",
+        "fields": [
+            { "key": "field_uzmanlik_ust", "label": "Sayfa Alt Yazısı", "name": "uzmanlik_alt_yazisi", "type": "textarea" },
+            { "key": "field_alan1_baslik", "label": "Alan 1 Başlık", "name": "alan_1_baslik", "type": "text" },
+            { "key": "field_alan1_aciklama", "label": "Alan 1 Açıklama", "name": "alan_1_aciklama", "type": "textarea" },
+            { "key": "field_alan2_baslik", "label": "Alan 2 Başlık", "name": "alan_2_baslik", "type": "text" },
+            { "key": "field_alan2_aciklama", "label": "Alan 2 Açıklama", "name": "alan_2_aciklama", "type": "textarea" },
+            { "key": "field_alan3_baslik", "label": "Alan 3 Başlık", "name": "alan_3_baslik", "type": "text" },
+            { "key": "field_alan3_aciklama", "label": "Alan 3 Açıklama", "name": "alan_3_aciklama", "type": "textarea" }
+        ],
+        "location": [ [ { "param": "post_type", "operator": "==", "value": "page" } ] ],
+        "menu_order": 3,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": true
+    }
+]

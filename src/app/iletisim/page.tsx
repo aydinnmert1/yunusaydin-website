@@ -6,14 +6,52 @@ export const metadata = {
   description: "Hukuki danışmanlık için Avukat Yunus Aydın ile iletişime geçin.",
 };
 
-export default function ContactPage() {
+async function getIletisimData() {
+  try {
+    const res = await fetch(`http://panel.yunusaydin.av.tr/wp-json/wp/v2/pages?slug=iletisim&_fields=acf`, { cache: 'no-store' });
+    const pages = await res.json();
+    if (pages && pages.length > 0 && pages[0].acf) {
+      return pages[0].acf;
+    }
+  } catch (error) {
+    console.error("Error fetching iletisim data:", error);
+  }
+  return null;
+}
+
+// Global data (from homepage) for phone, email, address
+async function getGlobalData() {
+  try {
+    const res = await fetch(`http://panel.yunusaydin.av.tr/wp-json/wp/v2/pages?slug=ana-sayfa&_fields=acf`, { cache: 'no-store' });
+    const pages = await res.json();
+    if (pages && pages.length > 0 && pages[0].acf) {
+      return pages[0].acf;
+    }
+  } catch (error) {
+    console.error("Error fetching global data:", error);
+  }
+  return null;
+}
+
+export default async function ContactPage() {
+  const acfData = await getIletisimData();
+  const globalData = await getGlobalData();
+
+  const sayfaAltYazi = acfData?.iletisim_alt_yazisi || "Hukuki sorunlarınızla ilgili detaylı bilgi almak ve randevu oluşturmak için bize ulaşın.";
+  const formUstu = acfData?.iletisim_form_ustu || "Acil hukuki destek veya danışmanlık talepleriniz için aşağıdaki iletişim kanallarından bize ulaşabilirsiniz.";
+
+  const telefon = globalData?.telefon_numarasi || "+90 (555) 123 45 67";
+  const email = globalData?.eposta_adresi || "info@yunusaydin.av.tr";
+  const adres = globalData?.acik_adres || "Adalet Mahallesi, Hukuk Plaza No:1 Kat:3 Merkez / Türkiye";
+  const saatler = globalData?.calisma_saatleri || "Pazartesi - Cuma: 09:00 - 18:00";
+
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.pageHeader}>
         <div className="container">
           <h1 className={styles.pageTitle}>İletişim</h1>
           <p className={styles.pageSubtitle}>
-            Hukuki sorunlarınızla ilgili detaylı bilgi almak ve randevu oluşturmak için bize ulaşın.
+            {sayfaAltYazi}
           </p>
         </div>
       </div>
@@ -24,7 +62,7 @@ export default function ContactPage() {
           <div className={styles.infoSide}>
             <h2 className={styles.heading}>Bize Ulaşın</h2>
             <p className={styles.desc}>
-              Acil hukuki destek veya danışmanlık talepleriniz için aşağıdaki iletişim kanallarından bize ulaşabilirsiniz.
+              {formUstu}
             </p>
 
             <ul className={styles.contactList}>
@@ -32,28 +70,28 @@ export default function ContactPage() {
                 <div className={styles.iconWrapper}><MapPin size={24} /></div>
                 <div className={styles.infoContent}>
                   <h3>Adres</h3>
-                  <p>Adalet Mahallesi, Hukuk Plaza No:1 Kat:3<br/>Merkez / Türkiye</p>
+                  <p>{adres}</p>
                 </div>
               </li>
               <li>
                 <div className={styles.iconWrapper}><Phone size={24} /></div>
                 <div className={styles.infoContent}>
                   <h3>Telefon</h3>
-                  <p><a href="tel:+905551234567">+90 (555) 123 45 67</a></p>
+                  <p><a href={`tel:${telefon.replace(/\s+/g, '')}`}>{telefon}</a></p>
                 </div>
               </li>
               <li>
                 <div className={styles.iconWrapper}><Mail size={24} /></div>
                 <div className={styles.infoContent}>
                   <h3>E-posta</h3>
-                  <p><a href="mailto:info@yunusaydin.av.tr">info@yunusaydin.av.tr</a></p>
+                  <p><a href={`mailto:${email}`}>{email}</a></p>
                 </div>
               </li>
               <li>
                 <div className={styles.iconWrapper}><Clock size={24} /></div>
                 <div className={styles.infoContent}>
                   <h3>Çalışma Saatleri</h3>
-                  <p>Pazartesi - Cuma: 09:00 - 18:00</p>
+                  <p>{saatler}</p>
                 </div>
               </li>
             </ul>

@@ -1,78 +1,92 @@
-import { Scale, BookOpen, ShieldCheck, Briefcase, Users, Building2 } from "lucide-react";
+import Link from "next/link";
+import { Scale, BookOpen, ShieldCheck, ArrowRight, Briefcase, FileText, Home as HomeIcon } from "lucide-react";
+import styles from "./page.module.css";
 
 export const metadata = {
   title: "Uzmanlık Alanları | Avukat Yunus Aydın",
-  description: "Avukat Yunus Aydın'ın hukuki danışmanlık ve avukatlık hizmeti verdiği uzmanlık alanları.",
+  description: "Ceza, Aile, Ticaret Hukuku ve daha fazlasında uzman avukatlık hizmetleri.",
 };
 
-export default function PracticeAreasPage() {
-  const areas = [
+async function getUzmanlikData() {
+  try {
+    const res = await fetch(`http://panel.yunusaydin.av.tr/wp-json/wp/v2/pages?slug=uzmanlik-alanlari&_fields=acf`, { cache: 'no-store' });
+    const pages = await res.json();
+    if (pages && pages.length > 0 && pages[0].acf) {
+      return pages[0].acf;
+    }
+  } catch (error) {
+    console.error("Error fetching uzmanlik data:", error);
+  }
+  return null;
+}
+
+export default async function PracticeAreasPage() {
+  const acfData = await getUzmanlikData();
+
+  const sayfaAltYazi = acfData?.uzmanlik_alt_yazisi || "Farklı hukuk dallarında edindiğimiz tecrübe ile ihtiyaç duyduğunuz alanda yanınızdayız.";
+
+  // Dynamic practice areas from ACF
+  const practiceAreas = [
     {
       id: "ceza-hukuku",
-      title: "Ceza Hukuku",
-      icon: <Scale size={40} color="var(--color-secondary)" />,
-      content: "Soruşturma ve kovuşturma evrelerinin tamamında, şüpheli, sanık, müşteki veya katılan vekili olarak hukuki destek sağlıyoruz. İfade alma, sorgu, tutuklamaya itiraz ve duruşma süreçlerinde müvekkillerimizin özgürlük ve haklarını en etkin şekilde savunuyoruz."
+      title: acfData?.alan_1_baslik || "Ceza Hukuku",
+      description: acfData?.alan_1_aciklama || "Soruşturma ve kovuşturma aşamalarında etkin ve çözüm odaklı avukatlık hizmeti.",
+      icon: <Scale size={48} className={styles.icon} />
     },
     {
-      id: "ticaret-hukuku",
-      title: "Ticaret ve Şirketler Hukuku",
-      icon: <Building2 size={40} color="var(--color-secondary)" />,
-      content: "Şirket kuruluşları, ana sözleşme değişiklikleri, genel kurul toplantıları, birleşme ve devralmalar gibi kurumsal süreçlerde hukuki danışmanlık sunuyoruz. Ticari sözleşmelerin hazırlanması ve ticari uyuşmazlıkların çözümünde şirketlerin hukuki güvenliğini sağlıyoruz."
+      id: "ticaret-sirketler-hukuku",
+      title: acfData?.alan_2_baslik || "Ticaret ve Şirketler Hukuku",
+      description: acfData?.alan_2_aciklama || "Şirket kuruluşları, sözleşmeler ve ticari uyuşmazlıklarda hukuki danışmanlık.",
+      icon: <Briefcase size={48} className={styles.icon} />
     },
     {
       id: "aile-hukuku",
-      title: "Aile Hukuku",
-      icon: <Users size={40} color="var(--color-secondary)" />,
-      content: "Anlaşmalı ve çekişmeli boşanma davaları, nafaka, velayet, maddi ve manevi tazminat ile mal rejiminin tasfiyesi davalarında sürecin hassasiyetini gözeterek, müvekkillerimizin ve varsa çocukların menfaatlerini en üst düzeyde koruyoruz."
-    },
-    {
-      id: "is-hukuku",
-      title: "İş Hukuku",
-      icon: <Briefcase size={40} color="var(--color-secondary)" />,
-      content: "İşçi ve işveren arasındaki uyuşmazlıklarda, işe iade davaları, kıdem ve ihbar tazminatı, fazla mesai, yıllık izin alacakları gibi konularda hukuki danışmanlık ve dava vekilliği hizmeti veriyoruz."
-    },
-    {
-      id: "gayrimenkul-hukuku",
-      title: "Gayrimenkul Hukuku",
-      icon: <BookOpen size={40} color="var(--color-secondary)" />,
-      content: "Tapu iptal ve tescil davaları, müdahalenin men'i (el atmanın önlenmesi), ecrimisil, izale-i şüyu (ortaklığın giderilmesi) ile kiralayan ve kiracı arasındaki uyuşmazlıklarda (tahliye, kira tespiti) hukuki çözümler sunuyoruz."
-    },
-    {
-      id: "tuketici-hukuku",
-      title: "Tüketici Hukuku",
-      icon: <ShieldCheck size={40} color="var(--color-secondary)" />,
-      content: "Ayıplı mal ve hizmetlerden kaynaklanan uyuşmazlıklar, Tüketici Hakem Heyeti ve Tüketici Mahkemeleri nezdinde yürütülecek süreçlerde tüketicilerin haklarını savunuyoruz."
+      title: acfData?.alan_3_baslik || "Aile Hukuku",
+      description: acfData?.alan_3_aciklama || "Boşanma, nafaka, velayet ve mal paylaşımı davalarında hassas ve gizlilik odaklı yaklaşım.",
+      icon: <ShieldCheck size={48} className={styles.icon} />
     }
   ];
 
   return (
-    <div style={{ paddingTop: 'var(--header-height)', minHeight: '100vh' }}>
-      <div style={{ backgroundColor: 'var(--color-primary)', color: '#fff', padding: '4rem 0', textAlign: 'center' }}>
+    <div className={styles.pageWrapper}>
+      {/* Header */}
+      <div className={styles.pageHeader}>
         <div className="container">
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem', color: '#fff' }}>Uzmanlık Alanlarımız</h1>
-          <p style={{ color: '#cbd5e1', fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto' }}>
-            Farklı hukuk dallarında edindiğimiz tecrübe ile ihtiyaç duyduğunuz alanda profesyonel destek sağlıyoruz.
+          <h1 className={styles.pageTitle}>Uzmanlık Alanlarımız</h1>
+          <p className={styles.pageSubtitle}>
+            {sayfaAltYazi}
           </p>
         </div>
       </div>
 
+      {/* Main Content */}
       <section className="section">
         <div className="container">
-          <div style={{ display: 'grid', gap: '3rem', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
-            {areas.map(area => (
-              <div key={area.id} id={area.id} style={{ 
-                backgroundColor: 'var(--color-surface)', 
-                padding: '2.5rem', 
-                borderRadius: 'var(--radius-lg)', 
-                boxShadow: 'var(--shadow-sm)',
-                border: '1px solid var(--color-border)',
-                scrollMarginTop: '100px'
-              }}>
-                <div style={{ marginBottom: '1.5rem' }}>{area.icon}</div>
-                <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{area.title}</h2>
-                <p style={{ color: 'var(--color-text-muted)', lineHeight: '1.7' }}>{area.content}</p>
+          <div className={styles.areasGrid}>
+            {practiceAreas.map((area) => (
+              <div key={area.id} id={area.id} className={styles.areaCard}>
+                <div className={styles.iconWrapper}>
+                  {area.icon}
+                </div>
+                <div className={styles.areaContent}>
+                  <h2 className={styles.areaTitle}>{area.title}</h2>
+                  <p className={styles.areaDesc}>{area.description}</p>
+                </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className={styles.ctaSection}>
+        <div className="container">
+          <div className={styles.ctaContent}>
+            <h2>Hukuki Desteğe mi İhtiyacınız Var?</h2>
+            <p>Durumunuzu değerlendirmek ve size en uygun çözümü bulmak için bizimle iletişime geçin.</p>
+            <Link href="/iletisim" className="btn-primary">
+              Randevu Alın <ArrowRight size={18} style={{marginLeft: '8px'}}/>
+            </Link>
           </div>
         </div>
       </section>
