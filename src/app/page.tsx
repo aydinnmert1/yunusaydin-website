@@ -4,7 +4,9 @@ import styles from "./page.module.css";
 
 async function getHomePageData() {
   try {
-    const res = await fetch(`https://panel.yunusaydin.av.tr/wp-json/wp/v2/pages?slug=ana-sayfa&_fields=acf`, { cache: 'no-store' });
+    // Note: Using http instead of https because the panel has an invalid/mismatched SSL certificate
+    // which causes Vercel (Node.js) fetch to throw an ERR_TLS_CERT_ALTNAME_INVALID error.
+    const res = await fetch(`http://panel.yunusaydin.av.tr/wp-json/wp/v2/pages?slug=ana-sayfa&_fields=acf`, { cache: 'no-store' });
     const pages = await res.json();
     if (pages && pages.length > 0 && pages[0].acf) {
       return pages[0].acf;
