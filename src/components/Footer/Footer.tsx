@@ -5,7 +5,7 @@ import styles from "./Footer.module.css";
 // Global data (from homepage) for phone, email, address
 async function getGlobalData() {
   try {
-    const res = await fetch(`http://panel.yunusaydin.av.tr/wp-json/wp/v2/pages?slug=ana-sayfa&_fields=acf`, { cache: 'no-store' });
+    const res = await fetch(`https://panel.yunusaydin.av.tr/wp-json/wp/v2/pages?slug=ana-sayfa&_fields=acf`, { cache: 'no-store' });
     const pages = await res.json();
     if (pages && pages.length > 0 && pages[0].acf) {
       return pages[0].acf;
