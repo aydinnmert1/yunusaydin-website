@@ -1,0 +1,118 @@
+.pageWrapper {
+  padding-top: var(--header-height);
+  min-height: 100vh;
+}
+
+.pageHeader {
+  background-color: var(--color-primary);
+  color: #fff;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.pageTitle {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.pageSubtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.areasGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .areasGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .areasGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.areaCard {
+  background-color: var(--color-surface, #fff);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  .areaCard {
+    background-color: #1e293b;
+  }
+}
+
+.areaCard:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.iconWrapper {
+  background-color: rgba(212, 175, 55, 0.1);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.icon {
+  color: var(--color-secondary);
+}
+
+.areaContent {
+  flex: 1;
+}
+
+.areaTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-serif);
+}
+
+.areaDesc {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.ctaSection {
+  background-color: var(--color-background-alt);
+  padding: 5rem 0;
+  text-align: center;
+}
+
+.ctaContent {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.ctaContent h2 {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.ctaContent p {
+  color: var(--color-text-muted);
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
